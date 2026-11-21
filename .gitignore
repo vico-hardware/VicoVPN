@@ -1,0 +1,17 @@
+# Binaires et sorties de build
+bin/
+dist/
+*.exe
+*.dll
+*.test
+*.syso.bak
+build-log.txt
+
+# Fichiers locaux (captures, vidéos promo, scripts de déploiement perso)
+promo_shots/
+/*.mp4
+deploy-*.ps1
+
+# Données d'exécution de Tor
+**/tor/run/
+**/tor/*.log

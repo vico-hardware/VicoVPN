@@ -1,0 +1,13 @@
+{
+  "role": "exit",
+  "listen": ":4443",
+  "cert_file": "relay.crt",
+  "key_file": "relay.key",
+  "country": "ZZ",
+  "mtu": 0,
+  "rate_kbps": 0,
+  "tun_name": "vicovpn-relay",
+  "tun_ip": "10.99.0.1/24",
+  "tun_ip6": "fd00:dead:beef::1/64",
+  "clients_file": "clients.txt"
+}

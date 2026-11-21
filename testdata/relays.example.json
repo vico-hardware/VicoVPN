@@ -1,0 +1,36 @@
+# VicoVPN — configuration exemple du CLIENT (relays.json)
+# Copier dans %ProgramData%\VicoVPN\relays.json (ou -config <dossier>)
+{
+  "version": 1,
+  "identity": {
+    "cert_pem": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n",
+    "key_pem": "-----BEGIN EC PRIVATE KEY-----\n...\n-----END EC PRIVATE KEY-----\n",
+    "key_id": "<empreinte hex sha256 du certificat>"
+  },
+  "relays": [
+    {
+      "name": "sortie-labo",
+      "role": "exit",
+      "addr": "192.168.56.10:4443",
+      "cert_sha256": "<empreinte base64 sha256 du certificat du relais — fournie par le propriétaire du relais sur un canal indépendant>",
+      "country": "ZZ"
+    },
+    {
+      "name": "entree-labo",
+      "role": "entry",
+      "addr": "192.168.56.11:4443",
+      "cert_sha256": "<empreinte base64>",
+      "country": "ZZ"
+    }
+  ],
+  "selected_exit": "sortie-labo"
+}
+
+# Notes :
+# - role "exit" : relais de sortie (termine la QUIC interne, applique la
+#   politique, NAT vers Internet).
+# - role "entry" : relais d'entrée (transmet le canal interne chiffré).
+#   Si un relais "entry" est présent, le client l'utilise TOUJOURS et
+#   n'ouvre aucune connexion directe vers la sortie.
+# - Sans relais "entry", le client se connecte directement à la sortie
+#   (mode laboratoire uniquement).

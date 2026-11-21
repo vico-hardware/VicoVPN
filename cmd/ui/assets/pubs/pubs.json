@@ -1,0 +1,10 @@
+[
+  {"nom": "Vico Telegram",  "fichier": "Vico_Telegram.mp4",  "lien": "https://t.me/+jvmALU3Q9Es0ODJk"},
+  {"nom": "Vico Studio",    "fichier": "Vico_Studio.mp4",    "lien": "https://hardware24.fr/logiciels.html"},
+  {"nom": "Vico Streaming", "fichier": "Vico_Streaming.mp4", "lien": "https://www.youtube.com/@vicostreaming"},
+  {"nom": "Vico Vox",       "fichier": "Vico_Vox.mp4",       "lien": "https://hardware24.fr/logiciels.html#vicovox"},
+  {"nom": "Vico Wave",      "fichier": "Vico_Wave.mp4",      "lien": "https://hardware24.fr/logiciels.html#vicowave"},
+  {"nom": "Vico Forge",     "fichier": "Vico_Forge.mp4",     "lien": "https://hardware24.fr/logiciels.html#vicoforge"},
+  {"nom": "Vico Media",     "fichier": "Vico_Media.mp4",     "lien": "https://hardware24.fr/logiciels.html#vicomedia"},
+  {"nom": "Vico AI",        "fichier": "Vico_AI.mp4",        "lien": "https://hardware24.fr/logiciels.html#vicovoice-ai"}
+]

@@ -1,0 +1,6 @@
+# Enrôlement côté relais : une empreinte hex SHA-256 de certificat client
+# autorisé par ligne (celle affichée par `vicovpn-client -gen-identity`
+# ou calculée depuis identity.key_id dans relays.json).
+# Vide = aucun client accepté. Pour révoquer : supprimer la ligne et
+# redémarrer le relais.
+# <key_id_du_client_en_hex>

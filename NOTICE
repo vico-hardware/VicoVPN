@@ -1,0 +1,34 @@
+VicoVPN
+Copyright (C) 2026 vico-hardware (Vico Studio — https://hardware24.fr)
+
+Auteur et titulaire des droits d'auteur : vico-hardware.
+
+1. CODE SOURCE
+   Le code source de VicoVPN est distribué sous la licence GNU General
+   Public License, version 3 uniquement (GPL-3.0-only), dont le texte
+   complet figure dans le fichier LICENSE.
+
+   La GPL ne transfère pas les droits d'auteur : l'auteur reste
+   propriétaire du code. Elle autorise chacun à utiliser, étudier,
+   modifier et redistribuer le logiciel, à condition de conserver cet
+   avis de copyright, de citer l'auteur, de publier les modifications
+   sous la même licence et de fournir le code source. Toute
+   redistribution fermée (propriétaire) est interdite sans l'accord
+   écrit de l'auteur. L'auteur peut accorder séparément d'autres
+   licences (par exemple commerciales) sur son propre code.
+
+2. MARQUE ET ÉLÉMENTS GRAPHIQUES — TOUS DROITS RÉSERVÉS
+   Les noms « Vico », « VicoVPN », « Vico Studio », « VicoMedia »,
+   « VicoVox », « VicoWave », « VicoForge », « VicoVoice AI », le
+   logo, l'icône, le fond d'écran, les visuels et les vidéos des
+   encarts (dossier cmd/ui/assets/ et ses sous-dossiers) ne sont PAS
+   couverts par la GPL. Ils restent la propriété exclusive de
+   vico-hardware, tous droits réservés.
+
+   Un fork ou une version modifiée distribuée doit remplacer ces
+   éléments et porter un autre nom ; il ne peut pas se présenter comme
+   VicoVPN ou comme un produit officiel Vico.
+
+3. COMPOSANTS TIERS
+   Les bibliothèques et binaires tiers gardent leurs propres licences :
+   voir docs/DEPENDANCES.md.

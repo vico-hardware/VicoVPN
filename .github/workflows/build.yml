@@ -1,0 +1,86 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    outputs:
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Dépendances tierces (wintun, tun2socks, Tor)
+        shell: pwsh
+        run: ./scripts/fetch-deps.ps1
+
+      - name: Inno Setup
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) { choco install innosetup -y --no-progress }
+
+      - name: Compilation + installateur
+        shell: pwsh
+        run: ./scripts/build.ps1 -Installer
+
+      - name: Artefact (installateur non signé)
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: VicoVPN-Setup
+          path: dist/*.exe
+          if-no-files-found: error
+
+  # Signature par SignPath Foundation : actif dès que la variable de dépôt
+  # SIGNPATH_ORGANIZATION_ID et le secret SIGNPATH_API_TOKEN sont définis
+  # (voir docs/SIGNPATH.md). Uniquement pour les tags v*.
+  sign:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v') && vars.SIGNPATH_ORGANIZATION_ID != ''
+    runs-on: windows-latest
+    steps:
+      - uses: signpath/github-action-submit-signing-request@v1
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: VicoVPN
+          signing-policy-slug: release-signing
+          artifact-configuration-slug: installer
+          github-artifact-id: ${{ needs.build.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: VicoVPN-Setup-signe
+          path: signed/*.exe
+
+  release:
+    needs: [build, sign]
+    if: always() && startsWith(github.ref, 'refs/tags/v') && needs.build.result == 'success' && needs.sign.result != 'failure'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: art
+      - name: Release GitHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -d art/VicoVPN-Setup-signe ]; then f=art/VicoVPN-Setup-signe/*.exe; else f=art/VicoVPN-Setup/*.exe; fi
+          gh release create "$GITHUB_REF_NAME" $f --title "VicoVPN $GITHUB_REF_NAME" --notes-file NOTES_DE_VERSION.md
