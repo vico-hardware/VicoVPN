@@ -83,4 +83,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ -d art/VicoVPN-Setup-signe ]; then f=art/VicoVPN-Setup-signe/*.exe; else f=art/VicoVPN-Setup/*.exe; fi
-          gh release create "$GITHUB_REF_NAME" $f --title "VicoVPN $GITHUB_REF_NAME" --notes-file NOTES_DE_VERSION.md
+          gh release create "$GITHUB_REF_NAME" $f --title "VicoVPN $GITHUB_REF_NAME" --notes-file RELEASE_NOTES.md
