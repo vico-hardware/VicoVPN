@@ -68,9 +68,12 @@ foreach ($v in $versions) {
     New-Item -ItemType Directory -Force $tx | Out-Null
     tar -xzf $tb -C $tx
     if ($LASTEXITCODE -ne 0) { throw 'extraction du Tor Expert Bundle impossible' }
-    Copy-Item (Join-Path $tx 'tor\tor.exe') "$Dest\tor\tor.exe" -Force
-    Copy-Item (Join-Path $tx 'data\tor\geoip') "$Dest\tor\data\geoip" -Force
-    Copy-Item (Join-Path $tx 'data\tor\geoip6') "$Dest\tor\data\geoip6" -Force
+    # l'arborescence du bundle varie selon les versions : chercher les fichiers
+    foreach ($f in @(@('tor.exe', "$Dest\tor\tor.exe"), @('geoip', "$Dest\tor\data\geoip"), @('geoip6', "$Dest\tor\data\geoip6"))) {
+        $src = Get-ChildItem $tx -Recurse -File -Filter $f[0] | Select-Object -First 1
+        if (-not $src) { throw "$($f[0]) introuvable dans le Tor Expert Bundle" }
+        Copy-Item $src.FullName $f[1] -Force
+    }
     $done = $true
     break
 }
